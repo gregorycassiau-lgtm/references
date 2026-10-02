@@ -25,10 +25,23 @@ def log(*a): print(*a, flush=True)
 
 UA = {"user-agent": "Mozilla/5.0 (portfolio-les-conteurs; +https://www.les-conteurs.com)"}
 
+def retry(fn, tries=5):
+    """Notion renvoie parfois des 502/429 passagers : on réessaie avec une attente croissante."""
+    import time
+    for n in range(tries):
+        try:
+            return fn()
+        except Exception as e:
+            if n == tries - 1: raise
+            wait = 3 * 2 ** n
+            log(f"  … nouvel essai dans {wait} s ({e})"); time.sleep(wait)
+
 def post(path, body):
-    req = urllib.request.Request(API + path, data=json.dumps(body).encode(), headers={"content-type": "application/json", **UA})
-    with urllib.request.urlopen(req, timeout=120) as r:
-        return json.loads(r.read())
+    def go():
+        req = urllib.request.Request(API + path, data=json.dumps(body).encode(), headers={"content-type": "application/json", **UA})
+        with urllib.request.urlopen(req, timeout=120) as r:
+            return json.loads(r.read())
+    return retry(go)
 
 def unwrap(v):
     v = v.get("value", v)
@@ -147,8 +160,10 @@ def fetch_raw(item):
     RAW.mkdir(exist_ok=True)
     ext = os.path.splitext(item["src"].split(":")[-1])[1].lower() or ".bin"
     raw = RAW / f"{item['id']}{ext}"
-    with urllib.request.urlopen(urllib.request.Request(signed_url(item), headers=UA), timeout=1800) as r, open(raw, "wb") as f:
-        shutil.copyfileobj(r, f, 1 << 20)
+    def go():
+        with urllib.request.urlopen(urllib.request.Request(signed_url(item), headers=UA), timeout=1800) as r, open(raw, "wb") as f:
+            shutil.copyfileobj(r, f, 1 << 20)
+    retry(go)
     return raw, ext
 
 def refresh_poster(item, manifest):
@@ -158,6 +173,16 @@ def refresh_poster(item, manifest):
     raw.unlink(missing_ok=True)
     log("  ✓ miniature", item["id"])
     return item["id"], {**manifest[item["id"]], "pv": POSTER_VERSION}
+
+def safe(fn):
+    """Un média en échec est signalé et ignoré : il sera retenté au prochain passage."""
+    def wrapped(item, manifest):
+        try:
+            return fn(item, manifest)
+        except Exception as e:
+            log(f"  ⚠ échec sur {item['kind']} {item['id']} : {e}")
+            return item["id"], manifest.get(item["id"]) if fn is refresh_poster else None
+    return wrapped
 
 def process(item, manifest):
     """Télécharge et compresse un média s'il est nouveau ou a changé. Renvoie ses métadonnées."""
@@ -233,7 +258,7 @@ def main():
     log(f"{len(todo)} média(s) nouveau(x) ou modifié(s)")
     if todo and not only_data:
         with cf.ThreadPoolExecutor(2) as ex:
-            for key, meta in ex.map(lambda it: process(it, manifest), todo):
+            for key, meta in ex.map(lambda it: safe(process)(it, manifest), todo):
                 if meta: manifest[key] = meta
         mpath.write_text(json.dumps(manifest, indent=1))
 
@@ -242,7 +267,7 @@ def main():
     if stale and not only_data:
         log(f"{len(stale)} miniature(s) à recalculer")
         with cf.ThreadPoolExecutor(3) as ex:
-            for key, meta in ex.map(lambda it: refresh_poster(it, manifest), stale):
+            for key, meta in ex.map(lambda it: safe(refresh_poster)(it, manifest), stale):
                 manifest[key] = meta
         mpath.write_text(json.dumps(manifest, indent=1))
 
