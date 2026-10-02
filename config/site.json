@@ -1,0 +1,71 @@
+{
+  "notion": {
+    "site": "https://les-conteurs.notion.site",
+    "space_id": "af7c713b-29c3-47f6-abac-ae9adbfeee35",
+    "collection_id": "31275c6f-77f9-8025-8ac7-000b7ec23846",
+    "view_id": "31275c6f-77f9-8051-a59e-000cf640181f"
+  },
+  "client_aliases": {
+    "Air Caraïbes - Vidéo1": "Air Caraïbes",
+    "Tours - Vidéos UGC": "Tours",
+    "Vacances Passion - UGC": "Vacances Passion",
+    "Calvados UGC": "Calvados",
+    "Grand Chateaudun": "Grand Châteaudun"
+  },
+  "sectors": {
+    "Atout France": "Agence nationale du tourisme",
+    "Bénin Tourisme": "Destination internationale",
+    "Région Sud": "Région & CRT",
+    "Sunêlia": "Hôtellerie de plein air",
+    "Les Iconiques": "Hôtellerie",
+    "Beaux Hôtels": "Hôtellerie",
+    "Trouville": "Destination",
+    "Yelloh Village": "Hôtellerie de plein air",
+    "Route des Grands Crus de Bourgogne": "Œnotourisme",
+    "Carnac": "Destination",
+    "Mandelieu": "Destination",
+    "Vélo Francette": "Itinérance vélo",
+    "Grand Châteaudun": "Destination",
+    "Calvados": "Destination",
+    "Air Caraïbes": "Transport aérien",
+    "Dinan Cap Fréhel": "Destination",
+    "Tours": "Destination",
+    "Vacances Passion": "Tourisme social",
+    "Cholet": "Destination",
+    "Armagnac & D’Artagnan": "Destination"
+  },
+  "covers": {
+    "Atout France": "31275c6f-77f9-80b0-a1c8-f14a9f69a55d",
+    "Bénin Tourisme": "31275c6f-77f9-806d-af4a-c9a953b5fc06",
+    "Région Sud": "36675c6f-77f9-80b2-8a6c-c9c0c0c427a5",
+    "Sunêlia": "31275c6f-77f9-8009-a475-ed370af18d3c",
+    "Trouville": "31275c6f-77f9-80a6-99b9-d524b05a808d",
+    "Carnac": "31275c6f-77f9-8035-887a-e1275c289ce2",
+    "Vélo Francette": "31275c6f-77f9-8038-be1b-ffd7f7363e56",
+    "Grand Châteaudun": "31275c6f-77f9-804c-975b-dce5513bd110",
+    "Calvados": "32275c6f-77f9-80f4-92d1-e96a0a391409",
+    "Dinan Cap Fréhel": "33075c6f-77f9-8055-be11-d27453dc2808",
+    "Tours": "35975c6f-77f9-802b-a49a-ef2f206c0b76",
+    "Armagnac & D’Artagnan": "3ed75c6f-77f9-8043-9907-cfa410c3aa6d"
+  },
+  "links": {
+    "Atout France": [
+      {
+        "t": "@explorefrance sur Instagram",
+        "u": "https://www.instagram.com/explorefrance/"
+      }
+    ],
+    "Région Sud": [
+      {
+        "t": "@visitsouthoffrance sur TikTok",
+        "u": "https://www.tiktok.com/@visitsouthoffrance"
+      }
+    ]
+  },
+  "categories": {
+    "📸 Social Media": "Social media",
+    "📢 Publicité": "Publicité",
+    "📸 Photographies": "Photographie",
+    "🏷️ Newsletters & marketing automation": "Newsletters & automation"
+  }
+}

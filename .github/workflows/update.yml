@@ -1,0 +1,64 @@
+name: Mettre à jour le portfolio
+
+on:
+  schedule:
+    - cron: "17 4 * * *"        # chaque nuit vers 6 h (heure de Paris)
+  workflow_dispatch:             # bouton « Run workflow » dans l'onglet Actions
+  repository_dispatch:
+    types: [notion-update]       # déclenchement depuis un bouton Notion (voir README)
+  push:
+    branches: [main]
+    paths: ["src/**", "config/**", "scripts/**", "netlify.toml"]
+
+concurrency:
+  group: portfolio
+  cancel-in-progress: false
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Outils (ffmpeg, poppler, Pillow)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg poppler-utils imagemagick
+          pip install --quiet pillow
+
+      # Les médias déjà compressés sont gardés entre deux passages :
+      # seules les nouvelles références sont traitées.
+      - name: Récupérer le cache des médias
+        uses: actions/cache/restore@v4
+        with:
+          path: media
+          key: media-${{ github.run_id }}
+          restore-keys: media-
+
+      - name: Construire le site
+        run: python3 scripts/build.py
+
+      - name: Sauvegarder le cache des médias
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: media
+          key: media-${{ github.run_id }}
+
+      - name: Publier sur Netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: npx -y netlify-cli deploy --prod --dir dist --site "$NETLIFY_SITE_ID" --message "Mise à jour Notion ${{ github.run_number }}"
+
+      - name: Résumé
+        run: |
+          python3 - >> "$GITHUB_STEP_SUMMARY" <<'EOF'
+          import json
+          d = json.load(open("dist/data.json"))
+          v = sum(len(ch["videos"]) for c in d for ch in c["chapters"])
+          i = sum(len(ch["images"]) for c in d for ch in c["chapters"])
+          print(f"### Portfolio publié\n{len(d)} clients · {v} vidéos · {i} visuels\n")
+          print("\n".join(f"- {c['name']}" for c in d))
+          EOF

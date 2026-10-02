@@ -1,0 +1,22 @@
+# Le site est construit par GitHub Actions (scripts/build.py) puis envoyé tel quel :
+# Netlify ne lance aucune commande de build.
+[build]
+  publish = "dist"
+  command = ""
+
+[[headers]]
+  for = "/v/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/p/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/i/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
