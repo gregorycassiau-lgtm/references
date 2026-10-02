@@ -26,7 +26,7 @@ Ajouter une référence = ajouter une ligne dans Notion. Rien d’autre.
 | Légende d’une vidéo ou d’un PDF | Titre affiché sous le média |
 | Première vidéo de la page (ou celle choisie dans `config/site.json` → `covers`) | Miniature de la carte |
 | Capture d’écran en tête de page | Ignorée (non publiée) |
-| Plusieurs lignes avec le même nom (ex. Carnac pub + Carnac newsletter) | Une seule fiche, en plusieurs chapitres |
+| Plusieurs lignes « Client - Volet » (ex. « Carnac - Publicité », « Carnac - Newsletters ») ou portant le même nom | Une seule fiche, un chapitre par volet |
 
 ### Colonnes optionnelles (recommandées)
 

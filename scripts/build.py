@@ -109,16 +109,62 @@ def probe(path):
     j = json.loads(r.stdout); s = j["streams"][0]
     return s["width"], s["height"], float(j["format"]["duration"])
 
+POSTER_VERSION = 2   # augmenter pour forcer le recalcul des miniatures en CI
+
+def make_poster(src, dst):
+    """Miniature nette tirée de l'original : on teste 9 instants et on garde l'image la plus nette.
+
+    Côté court de 1080 px (ou la taille d'origine si elle est plus petite), pour rester net
+    une fois recadré en 4:5 sur un écran Retina.
+    """
+    from PIL import Image, ImageFilter, ImageStat
+    _, _, d = probe(src)
+    tmp = Path(str(dst) + ".cand.png")
+    best = (-1.0, None)
+    scale = "scale='if(gte(iw,ih),-2,min(1080,iw))':'if(gte(iw,ih),min(1080,ih),-2)'"
+    for frac in (0.12, 0.2, 0.28, 0.36, 0.44, 0.52, 0.6, 0.68, 0.76):
+        t = max(1.0, d * frac) if d > 2.5 else d * 0.5
+        try:
+            sh("ffmpeg", "-nostdin", "-y", "-ss", f"{t:.2f}", "-i", str(src), "-frames:v", "1", "-vf", scale, str(tmp))
+            im = Image.open(tmp).convert("RGB")
+        except Exception:
+            continue
+        g = im.convert("L")
+        mean = ImageStat.Stat(g).mean[0]
+        if mean < 28 or mean > 235:          # écran noir, fondu ou carton blanc
+            continue
+        small = g.resize((max(1, g.width // 2), max(1, g.height // 2)))
+        sharp = ImageStat.Stat(small.filter(ImageFilter.FIND_EDGES)).var[0]
+        if sharp > best[0]:
+            best = (sharp, im.copy())
+    tmp.unlink(missing_ok=True)
+    if best[1] is None:                       # repli : image au milieu
+        sh("ffmpeg", "-nostdin", "-y", "-ss", f"{d/2:.2f}", "-i", str(src), "-frames:v", "1", "-vf", scale, str(tmp))
+        best = (0, Image.open(tmp).convert("RGB")); tmp.unlink(missing_ok=True)
+    best[1].save(dst, "WEBP", quality=82, method=6)
+
+def fetch_raw(item):
+    RAW.mkdir(exist_ok=True)
+    ext = os.path.splitext(item["src"].split(":")[-1])[1].lower() or ".bin"
+    raw = RAW / f"{item['id']}{ext}"
+    with urllib.request.urlopen(urllib.request.Request(signed_url(item), headers=UA), timeout=1800) as r, open(raw, "wb") as f:
+        shutil.copyfileobj(r, f, 1 << 20)
+    return raw, ext
+
+def refresh_poster(item, manifest):
+    """Recalcule seulement la miniature d'une vidéo déjà compressée."""
+    raw, _ = fetch_raw(item)
+    make_poster(raw, MEDIA / "p" / f"{item['id']}.webp")
+    raw.unlink(missing_ok=True)
+    log("  ✓ miniature", item["id"])
+    return item["id"], {**manifest[item["id"]], "pv": POSTER_VERSION}
+
 def process(item, manifest):
     """Télécharge et compresse un média s'il est nouveau ou a changé. Renvoie ses métadonnées."""
     key = item["id"]
     if manifest.get(key, {}).get("src") == item["src"]:
         return key, manifest[key]
-    RAW.mkdir(exist_ok=True)
-    ext = os.path.splitext(item["src"].split(":")[-1])[1].lower() or ".bin"
-    raw = RAW / f"{key}{ext}"
-    with urllib.request.urlopen(urllib.request.Request(signed_url(item), headers=UA), timeout=1800) as r, open(raw, "wb") as f:
-        shutil.copyfileobj(r, f, 1 << 20)
+    raw, ext = fetch_raw(item)
     meta = {"src": item["src"]}
     if item["kind"] == "video":
         (MEDIA / "v").mkdir(parents=True, exist_ok=True); (MEDIA / "p").mkdir(parents=True, exist_ok=True)
@@ -131,10 +177,9 @@ def process(item, manifest):
            "-c:v", "libx264", "-preset", "veryfast", "-profile:v", "high", "-pix_fmt", "yuv420p",
            "-crf", "26", "-maxrate", f"{cap}k", "-bufsize", f"{cap*2}k",
            "-c:a", "aac", "-b:a", "64k", "-ac", "2", "-movflags", "+faststart", str(out))
-        sh("ffmpeg", "-nostdin", "-y", "-ss", "1.5", "-i", str(out), "-frames:v", "1",
-           "-vf", "scale='if(gte(iw,ih),960,-2)':'if(gte(iw,ih),-2,960)'", "-q:v", "72", str(MEDIA / "p" / f"{key}.webp"))
+        make_poster(raw, MEDIA / "p" / f"{key}.webp")
         w, h, d = probe(out)
-        meta.update(w=w, h=h, d=round(d))
+        meta.update(w=w, h=h, d=round(d), pv=POSTER_VERSION)
     elif item["kind"] == "image":
         from PIL import Image
         Image.MAX_IMAGE_PIXELS = None
@@ -192,11 +237,25 @@ def main():
                 if meta: manifest[key] = meta
         mpath.write_text(json.dumps(manifest, indent=1))
 
+    stale = [it for r in rows for it in r["items"] if it["kind"] == "video" and it["id"] in manifest
+             and manifest[it["id"]].get("src") == it["src"] and manifest[it["id"]].get("pv", 1) < POSTER_VERSION]
+    if stale and not only_data:
+        log(f"{len(stale)} miniature(s) à recalculer")
+        with cf.ThreadPoolExecutor(3) as ex:
+            for key, meta in ex.map(lambda it: refresh_poster(it, manifest), stale):
+                manifest[key] = meta
+        mpath.write_text(json.dumps(manifest, indent=1))
+
     aliases, cats_map = CFG["client_aliases"], CFG["categories"]
     clients, order = {}, []
     for r in rows:
         if not r["items"]: continue
-        name = r["client"] or aliases.get(r["name"], r["name"])
+        # « Client - Volet » regroupe plusieurs lignes sous un même client, chaque volet devient un chapitre.
+        suffix = ""
+        if r["client"]: name = r["client"]
+        elif r["name"] in aliases: name = aliases[r["name"]]
+        elif " - " in r["name"]: name, suffix = [x.strip() for x in r["name"].split(" - ", 1)]
+        else: name = r["name"]
         if name not in clients:
             clients[name] = {"name": name, "sector": r["sector"] or CFG["sectors"].get(name, ""), "cats": [],
                              "supports": [], "markets": [], "chapters": [], "links": CFG["links"].get(name, []),
@@ -210,7 +269,7 @@ def main():
         for key, vals in (("cats", cats), ("supports", r["supports"]), ("markets", r["markets"])):
             for x in vals:
                 if x not in c[key]: c[key].append(x)
-        ch = {"label": " · ".join(cats), "videos": [], "images": [], "docs": []}
+        ch = {"label": suffix or " · ".join(cats), "videos": [], "images": [], "docs": []}
         n_auto = 0
         for it in r["items"]:
             m = manifest.get(it["id"])
