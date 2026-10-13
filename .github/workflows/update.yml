@@ -3,6 +3,8 @@ name: Mettre à jour le portfolio
 on:
   schedule:
     - cron: "17 4 * * *"        # chaque nuit vers 6 h (heure de Paris)
+    - cron: "41 6-18 * * 1-5"   # et toutes les heures en journée, du lundi au vendredi
+    # (GitHub peut décaler les passages programmés de quelques minutes à quelques heures)
   workflow_dispatch:             # bouton « Run workflow » dans l'onglet Actions
   repository_dispatch:
     types: [notion-update]       # déclenchement depuis un bouton Notion (voir README)
@@ -46,7 +48,23 @@ jobs:
           path: media
           key: media-${{ github.run_id }}
 
+      # Passage programmé : on ne republie que si Notion a changé.
+      - name: Comparer avec le site en ligne
+        id: diff
+        run: |
+          change=oui
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            change=non
+            for f in data.json landings.json references.json; do
+              curl -sSf -m 30 "https://les-conteurs-references.netlify.app/$f" -o "/tmp/live-$f" || { change=oui; break; }
+              cmp -s "dist/$f" "/tmp/live-$f" || { change=oui; break; }
+            done
+          fi
+          echo "change=$change" >> "$GITHUB_OUTPUT"
+          echo "Changement depuis la dernière publication : $change"
+
       - name: Publier sur Netlify
+        if: steps.diff.outputs.change == 'oui'
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
@@ -54,6 +72,7 @@ jobs:
 
       - name: Résumé
         run: |
+          if [ "${{ steps.diff.outputs.change }}" = "non" ]; then echo "### Rien de nouveau dans Notion : pas de publication" >> "$GITHUB_STEP_SUMMARY"; exit 0; fi
           python3 - >> "$GITHUB_STEP_SUMMARY" <<'EOF'
           import json
           d = json.load(open("dist/data.json"))

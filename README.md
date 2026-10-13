@@ -6,12 +6,17 @@ https://les-conteurs-references.netlify.app.
 
 ## Comment ça marche
 
-Chaque nuit (et à la demande), GitHub Actions :
+Toutes les heures en journée du lundi au vendredi (7 h-20 h environ), chaque nuit, et à la demande, GitHub Actions :
 
 1. lit la base Notion publique ;
 2. télécharge les **nouveaux** médias uniquement (les autres sont en cache) ;
 3. compresse les vidéos (H.264, 720p, < 14 Mo) et les images (WebP) ;
-4. génère le site dans `dist/` et le publie sur Netlify.
+4. génère le site dans `dist/` et le publie sur Netlify, **seulement si quelque chose a changé** dans Notion
+   (sinon le passage s’arrête là, sans nouvelle publication).
+
+Le site les-conteurs.com relit ces données au plus tard une heure après : une modification
+dans Notion apparaît donc sur le site en 2 heures maximum en semaine. GitHub peut retarder
+les passages programmés quand ses serveurs sont chargés.
 
 Ajouter une référence = ajouter une ligne dans Notion. Rien d’autre.
 
@@ -71,7 +76,7 @@ Comptez 2 à 5 minutes par nouvelle vidéo 4K.
 
 Si votre offre Notion propose l’action d’automatisation « Envoyer un webhook » avec en-têtes personnalisés, elle peut déclencher la mise à jour :
 
-- URL : `https://api.github.com/repos/<organisation>/<depot>/dispatches`
+- URL : `https://api.github.com/repos/gregorycassiau-lgtm/references/dispatches`
 - En-têtes : `Authorization: Bearer <jeton GitHub>`, `Accept: application/vnd.github+json`
 - Corps : `{"event_type": "notion-update"}`
 
