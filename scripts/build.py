@@ -425,6 +425,37 @@ def main():
     (DIST / "landings.json").write_text(json.dumps(landings, ensure_ascii=False, indent=1))
     log("Landings : " + (", ".join(f"{k} ({len(v)})" for k, v in landings.items()) or "aucune"))
 
+    # references.json : toutes les références, pour les pages « Nos références » et « détail » du site.
+    pays = {"🇫🇷": "France", "🇧🇪": "Belgique", "🇨🇭": "Suisse", "🇧🇯": "Bénin", "🇮🇹": "Italie", "🇩🇪": "Allemagne",
+            "🇬🇧": "Royaume-Uni", "🇪🇸": "Espagne", "🇳🇱": "Pays-Bas", "🇺🇸": "États-Unis", "🇨🇦": "Canada"}
+    def u(rel): return f"{site}/{rel}" if rel else ""
+    refs = []
+    for n, c in enumerate(data):
+        cover = covers.get(c["name"])
+        if not cover:
+            first = next((v for ch in c["chapters"] for v in ch["videos"]), None)
+            img = next((i for ch in c["chapters"] for i in ch["images"]), None)
+            doc = next((d for ch in c["chapters"] for d in ch["docs"]), None)
+            cover = (f"p/{first['id']}.webp" if first else f"i/{img['id']}.webp" if img
+                     else f"d/{doc['cover']}" if doc else None)
+        refs.append({
+            "client": c["name"], "slug": slug(c["name"]), "secteur": c["sector"], "cats": c["cats"],
+            "supports": c["supports"], "marches": [pays.get(m, m) for m in c["markets"]],
+            "accroche": c["accroche"], "contexte": c["context"], "resultats": c["results"],
+            "image": u(cover), "liens": c["links"], "ordre": c["ordre"], "_n": n,
+            "chapitres": [{
+                "titre": ch.get("label") or "",
+                "videos": [{"t": v["t"], "src": u(f"v/{v['id']}.mp4"), "poster": u(f"p/{v['id']}.webp"),
+                            "w": v["w"], "h": v["h"], "d": v["d"]} for v in ch["videos"]],
+                "images": [{"src": u(f"i/{i['id']}.webp"), "w": i["w"], "h": i["h"]} for i in ch["images"]],
+                "docs": [{"t": d["t"], "pdf": u(f"d/{d['id']}.pdf"), "cover": u(f"d/{d['cover']}")} for d in ch["docs"]],
+            } for ch in c["chapters"]],
+        })
+    refs.sort(key=lambda r: (r["ordre"] is None, r["ordre"] if r["ordre"] is not None else 0, r["_n"]))
+    for r in refs: del r["_n"]
+    (DIST / "references.json").write_text(json.dumps(refs, ensure_ascii=False, indent=1))
+    log(f"references.json : {len(refs)} références")
+
     nv = sum(len(ch["videos"]) for c in data for ch in c["chapters"])
     ni = sum(len(ch["images"]) for c in data for ch in c["chapters"])
     log(f"OK : {len(data)} clients, {nv} vidéos, {ni} visuels → dist/")
