@@ -73,11 +73,30 @@ def read_rows():
         # Colonnes optionnelles : si « Publié » existe, seules les lignes cochées sont publiées.
         if "Publié" in byname and val("Publié") != "Yes":
             continue
+        def files(name):
+            """Colonne Fichiers & médias : liste des pièces jointes (attachment:…) ou liens externes."""
+            out = []
+            for seg in p.get(byname.get(name), []) or []:
+                for fmt in (seg[1] if len(seg) > 1 else []) or []:
+                    if fmt and fmt[0] == "a" and len(fmt) > 1: out.append(fmt[1])
+            return out
+        ordre = val("Ordre").strip()
+        try: ordre = float(ordre.replace(",", "."))
+        except ValueError: ordre = None
         rows.append({"id": bid, "name": val("Nom").strip(), "cats": multi("Références"),
                      "supports": multi("Supports"), "markets": multi("Marchés"),
                      "client": val("Client").strip(), "sector": val("Secteur").strip(),
-                     "context": val("Contexte").strip(), "results": val("Résultats").strip()})
+                     "context": val("Contexte").strip(),
+                     "results": (val("Résultats") or val("Résultat")).strip(),
+                     # Colonnes des landings du site : Landing, Ordre, Accroche, Couverture
+                     "landings": multi("Landing"), "ordre": ordre, "accroche": val("Accroche").strip(),
+                     "covers": files("Couverture")})
     return rows
+
+# Valeurs de la colonne Landing → identifiant utilisé par le shortcode WordPress
+def landing_slug(s):
+    s = re.sub(r"^[^\w]+", "", s, flags=re.U)               # retire un éventuel emoji en tête
+    return slug(s)
 
 # ---------- 2. Contenu de chaque page ----------
 _blocks = {}
@@ -227,6 +246,28 @@ def process(item, manifest):
     log("  ✓", item["kind"], key)
     return key, meta
 
+def process_cover(row, manifest):
+    """Image de la colonne Couverture (la première si plusieurs) → media/c/<id ligne>.webp."""
+    key, src = f"cover-{row['id']}", row["covers"][0]
+    if manifest.get(key, {}).get("src") == src and (MEDIA / "c" / f"{row['id']}.webp").exists():
+        return key, manifest[key]
+    from PIL import Image
+    Image.MAX_IMAGE_PIXELS = None
+    RAW.mkdir(exist_ok=True); (MEDIA / "c").mkdir(parents=True, exist_ok=True)
+    raw = RAW / f"cover-{row['id']}"
+    url = signed_url({"src": src, "id": row["id"]}) if src.startswith("attachment:") else src
+    def go():
+        with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=600) as r, open(raw, "wb") as f:
+            shutil.copyfileobj(r, f, 1 << 20)
+    retry(go)
+    im = Image.open(raw).convert("RGB"); w, h = im.size
+    if max(w, h) > 1600:
+        s = 1600 / max(w, h); im = im.resize((round(w * s), round(h * s)), Image.LANCZOS)
+    im.save(MEDIA / "c" / f"{row['id']}.webp", "WEBP", quality=82, method=6)
+    raw.unlink(missing_ok=True)
+    log("  ✓ couverture", row["name"])
+    return key, {"src": src, "w": im.size[0], "h": im.size[1]}
+
 # ---------- 4. Assemblage ----------
 def clean_title(src):
     n = re.sub(r"\.[a-z0-9]{2,4}$", "", src.split(":", 2)[-1], flags=re.I)
@@ -271,6 +312,15 @@ def main():
                 manifest[key] = meta
         mpath.write_text(json.dumps(manifest, indent=1))
 
+    with_cover = [r for r in rows if r["covers"]]
+    if with_cover and not only_data:
+        for r in with_cover:
+            try:
+                key, meta = process_cover(r, manifest); manifest[key] = meta
+            except Exception as e:
+                log(f"  ⚠ couverture ignorée pour {r['name']} : {e}")
+        mpath.write_text(json.dumps(manifest, indent=1))
+
     aliases, cats_map = CFG["client_aliases"], CFG["categories"]
     clients, order = {}, []
     for r in rows:
@@ -284,9 +334,16 @@ def main():
         if name not in clients:
             clients[name] = {"name": name, "sector": r["sector"] or CFG["sectors"].get(name, ""), "cats": [],
                              "supports": [], "markets": [], "chapters": [], "links": CFG["links"].get(name, []),
-                             "context": "", "results": ""}
+                             "context": "", "results": "",
+                             "landings": [], "ordre": None, "accroche": "", "cover_img": None}
             order.append(name)
         c = clients[name]
+        for l in r["landings"]:
+            if landing_slug(l) not in c["landings"]: c["landings"].append(landing_slug(l))
+        if r["ordre"] is not None and (c["ordre"] is None or r["ordre"] < c["ordre"]): c["ordre"] = r["ordre"]
+        if r["accroche"] and not c["accroche"]: c["accroche"] = r["accroche"]
+        if r["covers"] and not c["cover_img"] and (MEDIA / "c" / f"{r['id']}.webp").exists():
+            c["cover_img"] = f"c/{r['id']}.webp"
         for k in ("context", "results"):
             if r[k] and r[k] not in c[k]: c[k] = (c[k] + "\n\n" + r[k]).strip()
         cats = [cats_map.get(x, x) for x in r["cats"]]
@@ -316,8 +373,10 @@ def main():
     covers = {}
     for c in data:
         # Miniature de carte : la vidéo choisie dans config/site.json, sinon la première vidéo.
+        # La colonne Couverture de Notion passe avant tout.
         vid = CFG["covers"].get(c["name"])
-        if vid and (MEDIA / "p" / f"{vid}.webp").exists(): covers[c["name"]] = f"p/{vid}.webp"
+        if c["cover_img"]: covers[c["name"]] = c["cover_img"]
+        elif vid and (MEDIA / "p" / f"{vid}.webp").exists(): covers[c["name"]] = f"p/{vid}.webp"
 
     # dist/
     shutil.rmtree(DIST, ignore_errors=True); DIST.mkdir()
@@ -344,6 +403,27 @@ def main():
     (DIST / "fragment.html").write_text(page)          # version sans <head>, pour une page Claude
     shutil.copy(ROOT / "src/favicon.svg", DIST / "favicon.svg")
     (DIST / "data.json").write_text(json.dumps(data, ensure_ascii=False, indent=1))
+
+    # landings.json : les cartes « références » des landings du site (lues par l'extension WordPress).
+    site = CFG.get("site_url", "https://les-conteurs-references.netlify.app").rstrip("/")
+    landings = {}
+    for c in data:
+        if not c["landings"]: continue
+        cover = covers.get(c["name"])
+        if not cover:
+            first = next((v for ch in c["chapters"] for v in ch["videos"]), None)
+            img = next((i for ch in c["chapters"] for i in ch["images"]), None)
+            cover = f"p/{first['id']}.webp" if first else (f"i/{img['id']}.webp" if img else None)
+        card = {"client": c["name"], "slug": slug(c["name"]), "secteur": c["sector"], "cats": c["cats"],
+                "accroche": c["accroche"], "resultat": c["results"].split("\n\n")[0] if c["results"] else "",
+                "image": f"{site}/{cover}" if cover else "", "lien": f"{site}/#{slug(c['name'])}",
+                "ordre": c["ordre"]}
+        for l in c["landings"]:
+            landings.setdefault(l, []).append(card)
+    for l in landings:
+        landings[l].sort(key=lambda k: (k["ordre"] is None, k["ordre"] if k["ordre"] is not None else 0))
+    (DIST / "landings.json").write_text(json.dumps(landings, ensure_ascii=False, indent=1))
+    log("Landings : " + (", ".join(f"{k} ({len(v)})" for k, v in landings.items()) or "aucune"))
 
     nv = sum(len(ch["videos"]) for c in data for ch in c["chapters"])
     ni = sum(len(ch["images"]) for c in data for ch in c["chapters"])

@@ -41,6 +41,24 @@ Les noms doivent être exactement ceux-ci :
 - **Publié** (case à cocher) : dès que cette colonne existe, seules les lignes
   cochées sont publiées. Pratique pour préparer une référence sans la montrer.
 
+### Colonnes des landings du site (les-conteurs.com)
+
+Ces colonnes alimentent `landings.json`, que l'extension WordPress
+« Les Conteurs — Références » lit pour afficher les blocs « On a des preuves »
+des landings (shortcode `[conteurs_references landing="production"]`).
+
+- **Landing** (sélection multiple) : la ou les landings où la référence apparaît.
+  Valeurs : `Production`, `Social media`, `Trafic`, `Branding`, `Conseil`,
+  `Marketing automation`, `Rédaction`, `Home`. Elles deviennent
+  `production`, `social-media`, `trafic`, `branding`, `conseil`,
+  `marketing-automation`, `redaction`, `home` dans le shortcode.
+- **Ordre** (nombre) : 1 = en premier. Sans ordre, la référence passe après.
+- **Accroche** (texte) : une ligne sous le nom du client sur la carte.
+- **Résultats** (texte) : le premier paragraphe s'affiche en gras sur la carte.
+- **Couverture** (fichiers et médias) : l'image de la carte. Si plusieurs fichiers,
+  la première est prise. Elle sert aussi de miniature sur ce portfolio.
+  Sans couverture : miniature de la première vidéo.
+
 Pensez aussi à **mettre une légende à chaque vidéo** dans Notion : sans elle,
 le titre est tiré du nom du fichier (ou de `config/titles.json`).
 
