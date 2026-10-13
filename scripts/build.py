@@ -456,6 +456,14 @@ def main():
     (DIST / "references.json").write_text(json.dumps(refs, ensure_ascii=False, indent=1))
     log(f"references.json : {len(refs)} références")
 
+    # version.json : une empreinte des données. L'extension WordPress la consulte toutes les 5 minutes
+    # (fichier minuscule) et ne recharge les références que si elle a changé.
+    import hashlib
+    h = hashlib.sha1()
+    for f in ("data.json", "landings.json", "references.json"):
+        h.update((DIST / f).read_bytes())
+    (DIST / "version.json").write_text(json.dumps({"v": h.hexdigest()[:16]}))
+
     nv = sum(len(ch["videos"]) for c in data for ch in c["chapters"])
     ni = sum(len(ch["images"]) for c in data for ch in c["chapters"])
     log(f"OK : {len(data)} clients, {nv} vidéos, {ni} visuels → dist/")
