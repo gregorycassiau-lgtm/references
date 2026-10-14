@@ -121,6 +121,16 @@ def walk(bid, out, depth=0):
         if src.startswith("attachment:"):
             out.append({"kind": "doc" if t in ("file", "pdf") else t, "id": bid, "src": src,
                         "caption": rich(props.get("caption")).strip()})
+        elif t == "image" and src.startswith(("http://", "https://")):
+            # Image intégrée par son adresse (ex. planches hébergées sur un autre site) :
+            # elle est téléchargée et recompressée comme une image déposée dans Notion.
+            out.append({"kind": "image", "id": bid, "src": src, "caption": rich(props.get("caption")).strip()})
+    # Lien dans un paragraphe (ex. « Charte complète (PDF, Drive) ») : devient un lien de la fiche client.
+    if t in ("text", "bulleted_list", "numbered_list", "callout"):
+        for seg in props.get("title", []) or []:
+            for fmt in (seg[1] if len(seg) > 1 else []) or []:
+                if fmt and fmt[0] == "a" and len(fmt) > 1 and str(fmt[1]).startswith(("http://", "https://")):
+                    out.append({"kind": "link", "id": bid, "t": seg[0].strip(), "u": fmt[1]})
     if t == "page" and depth > 0: return
     for c in b.get("content", []) or []:
         walk(c, out, depth + 1)
@@ -177,10 +187,13 @@ def make_poster(src, dst):
 
 def fetch_raw(item):
     RAW.mkdir(exist_ok=True)
-    ext = os.path.splitext(item["src"].split(":")[-1])[1].lower() or ".bin"
+    externe = item["src"].startswith(("http://", "https://"))
+    nom = item["src"].split("?")[0].rsplit("/", 1)[-1] if externe else item["src"].split(":")[-1]
+    ext = os.path.splitext(nom)[1].lower() or ".bin"
     raw = RAW / f"{item['id']}{ext}"
     def go():
-        with urllib.request.urlopen(urllib.request.Request(signed_url(item), headers=UA), timeout=1800) as r, open(raw, "wb") as f:
+        url = item["src"] if externe else signed_url(item)
+        with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=1800) as r, open(raw, "wb") as f:
             shutil.copyfileobj(r, f, 1 << 20)
     retry(go)
     return raw, ext
@@ -295,7 +308,7 @@ def main():
             items.pop(0)
         r["items"] = items
 
-    todo = [it for r in rows for it in r["items"] if manifest.get(it["id"], {}).get("src") != it["src"]]
+    todo = [it for r in rows for it in r["items"] if it["kind"] != "link" and manifest.get(it["id"], {}).get("src") != it["src"]]
     log(f"{len(todo)} média(s) nouveau(x) ou modifié(s)")
     if todo and not only_data:
         with cf.ThreadPoolExecutor(2) as ex:
@@ -331,9 +344,10 @@ def main():
         elif r["name"] in aliases: name = aliases[r["name"]]
         elif " - " in r["name"]: name, suffix = [x.strip() for x in r["name"].split(" - ", 1)]
         else: name = r["name"]
+        name = aliases.get(name, name)        # « Grand Châteaudun Tourisme - Charte » rejoint « Grand Châteaudun »
         if name not in clients:
             clients[name] = {"name": name, "sector": r["sector"] or CFG["sectors"].get(name, ""), "cats": [],
-                             "supports": [], "markets": [], "chapters": [], "links": CFG["links"].get(name, []),
+                             "supports": [], "markets": [], "chapters": [], "links": list(CFG["links"].get(name, [])),
                              "context": "", "results": "",
                              "landings": [], "ordre": None, "accroche": "", "cover_img": None}
             order.append(name)
@@ -354,6 +368,10 @@ def main():
         ch = {"label": suffix or " · ".join(cats), "videos": [], "images": [], "docs": []}
         n_auto = 0
         for it in r["items"]:
+            if it["kind"] == "link":
+                if it["t"] and not any(l["u"] == it["u"] for l in c["links"]):
+                    c["links"].append({"t": f"{suffix} : {it['t']}" if suffix else it["t"], "u": it["u"]})
+                continue
             m = manifest.get(it["id"])
             if not m: continue
             if it["kind"] == "video":

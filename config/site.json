@@ -10,7 +10,10 @@
     "Tours - Vidéos UGC": "Tours",
     "Vacances Passion - UGC": "Vacances Passion",
     "Calvados UGC": "Calvados",
-    "Grand Chateaudun": "Grand Châteaudun"
+    "Grand Chateaudun": "Grand Châteaudun",
+    "Grand Châteaudun Tourisme": "Grand Châteaudun",
+    "Sud Réunion Tourisme": "Sud Réunion",
+    "Cergy-Pontoise Tourisme": "Cergy-Pontoise"
   },
   "sectors": {
     "Atout France": "Agence nationale du tourisme",
@@ -32,7 +35,36 @@
     "Tours": "Destination",
     "Vacances Passion": "Tourisme social",
     "Cholet": "Destination",
-    "Armagnac & D’Artagnan": "Destination"
+    "Armagnac & D’Artagnan": "Destination",
+    "Alpes Vaudoises": "Destination",
+    "Sud Réunion": "Destination",
+    "Damgan La Roche-Bernard": "Destination",
+    "Cœur d’Essonne": "Destination",
+    "Villages Clubs du Soleil": "Villages de vacances",
+    "Vallée du Rhône Nord": "Destination",
+    "Périgord Vert": "Destination",
+    "Vendée Marais Poitevin": "Destination",
+    "Aube en Champagne": "Destination",
+    "Normandie Pays d’Auge": "Destination",
+    "Cergy-Pontoise": "Destination",
+    "La Réunion": "Destination internationale",
+    "Vignoble Nantais": "Œnotourisme",
+    "Caen la Mer": "Destination",
+    "Villars": "Destination",
+    "Beaujolais": "Œnotourisme",
+    "Vie et Boulogne": "Destination",
+    "Sologne": "Destination",
+    "Sud Berry": "Destination",
+    "Bassin d’Arcachon": "Destination",
+    "Parc naturel régional de Lorraine": "Parc naturel régional",
+    "Bastides et Gorges de l’Aveyron": "Destination",
+    "Val de Garonne Guyenne Gascogne": "Destination",
+    "Dordogne": "Destination",
+    "Argelès-sur-Mer": "Destination",
+    "Les Escapades à Rome": "Tourisme réceptif",
+    "Sud Val de Loire": "Destination",
+    "Lot-et-Garonne": "Destination",
+    "Pornic": "Destination"
   },
   "covers": {
     "Atout France": "31275c6f-77f9-80b0-a1c8-f14a9f69a55d",
@@ -66,6 +98,7 @@
     "📸 Social Media": "Social media",
     "📢 Publicité": "Publicité",
     "📸 Photographies": "Photographie",
-    "🏷️ Newsletters & marketing automation": "Newsletters & automation"
+    "🏷️ Newsletters & marketing automation": "Newsletters & automation",
+    "📖 Magazines & éditions": "Magazines & éditions"
   }
 }
