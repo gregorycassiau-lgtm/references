@@ -248,9 +248,9 @@ h1,h2,h3,p,dl,dd,figure{margin:0}
 <section class="nums" aria-labelledby="nums-t"><div class="wrap">
   <h2 id="nums-t" class="lc-cond">On tourne, on monte, <span>on publie.</span></h2>
   <ul>
-    <li><b class="lc-cond" id="n-a"></b><h3>clients</h3><p>Destinations, offices de tourisme, hôtellerie et transport.</p></li>
-    <li><b class="lc-cond" id="n-b"></b><h3>vidéos</h3><p>Films de destination, reels, UGC et formats publicitaires.</p></li>
-    <li><b class="lc-cond" id="n-c"></b><h3>visuels</h3><p>Photos, posts, bannières et newsletters.</p></li>
+    <li><b class="lc-cond">50</b><h3>clients</h3><p>Destinations, offices de tourisme, hôtellerie et transport.</p></li>
+    <li><b class="lc-cond">500</b><h3>vidéos</h3><p>Films de destination, reels, UGC et formats publicitaires.</p></li>
+    <li><b class="lc-cond">50&nbsp;000</b><h3>photos</h3><p>Reportages, portraits, paysages et visuels pour les réseaux.</p></li>
   </ul>
 </div></section>
 
@@ -322,9 +322,6 @@ function plural(n, one, many){ return `${n} ${n>1?many:one}`; }
 (() => {
   const v = DATA.reduce((a,c)=>a+c.videos.length,0), i = DATA.reduce((a,c)=>a+c.images.length,0), d = DATA.reduce((a,c)=>a+c.docs.length,0);
   const mins = Math.round(DATA.reduce((a,c)=>a+c.videos.reduce((x,y)=>x+y.d,0),0)/60);
-  document.getElementById("n-a").textContent = DATA.length;
-  document.getElementById("n-b").textContent = v;
-  document.getElementById("n-c").textContent = i;
   const run = DATA.map(c=>`<span>${esc(c.name)}</span><i aria-hidden="true">✶</i>`).join("");
   document.getElementById("track").innerHTML = run + run;
 })();
