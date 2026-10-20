@@ -1,185 +1,297 @@
-<title>Références Les Conteurs</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<title>Références · Les Conteurs, éléments perturbateurs</title>
+<meta name="description" content="Films, contenus social media, campagnes et newsletters réalisés par Les Conteurs pour des destinations et des marques du tourisme.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap">
 <style>
-/* Layout: quiet stone-paper frame, the work carries the colour. Small ink logo masthead, title hero, filter rail, 3-col index of clients, full-screen project sheet. */
-:root{
-  --paper:#ECEDE8; --paper-2:#E2E4DE; --ink:#151A17; --muted:#5D6560; --line:#C9CDC5; --accent:#2D3EB2; --on-accent:#F3F4F0; --brand:#2D3EB2; --coral:#FF7E6A;
-  --shade:rgba(21,26,23,.06); --scrim:rgba(14,17,15,.92);
-  --display:"Gloock", "Times New Roman", Georgia, serif;
-  --body:"Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --gutter:clamp(16px,4vw,48px); --radius:3px;
-}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --paper:#101412; --paper-2:#181D1A; --ink:#E8EBE5; --muted:#99A29C; --line:#2B322E; --accent:#A9B4FF; --on-accent:#0E1220; --brand:#C9D0FF;
-  --shade:rgba(255,255,255,.05); --scrim:rgba(5,7,6,.95); color-scheme:dark }}
-:root[data-theme="dark"]{
-  --paper:#101412; --paper-2:#181D1A; --ink:#E8EBE5; --muted:#99A29C; --line:#2B322E; --accent:#A9B4FF; --on-accent:#0E1220; --brand:#C9D0FF;
-  --shade:rgba(255,255,255,.05); --scrim:rgba(5,7,6,.95); color-scheme:dark }
-
-*{box-sizing:border-box}
-body{background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--body);-webkit-font-smoothing:antialiased}
-.wrap{padding-inline:var(--gutter);max-width:1480px;margin-inline:auto}
-a{color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
-.mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em;font-variant-numeric:tabular-nums}
-
-/* Hero */
-header.hero{padding-block:clamp(16px,4vw,48px) clamp(20px,3vw,36px);display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(20px,4vw,64px);align-items:end;border-bottom:1px solid var(--line)}
+:root{--v:#5B21D8;--g:#B7FF78;--r:#FAC7FF;--n:#1A1717;--pad:clamp(16px,5vw,80px)}
+*,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none!important}
-.masthead{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:22px;color:var(--ink)}
-.masthead .mono{color:var(--muted);text-transform:uppercase;letter-spacing:.14em}
-.brand{display:block;color:var(--ink);line-height:0}
-.brand .logo{display:block;width:clamp(118px,11vw,150px);height:auto}
-.title{font:400 clamp(52px,8vw,112px)/.9 var(--display);letter-spacing:-.02em;margin:0}
-.eyebrow{text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:0 0 14px}
-.lede{font-size:clamp(17px,1.6vw,20px);line-height:1.5;margin:0 0 22px;max-width:46ch}
-.stats{display:flex;flex-wrap:wrap;gap:8px 22px;margin:0;padding:0;list-style:none}
-.stats b{font:400 30px/1 var(--display);display:block;color:var(--ink);letter-spacing:0}
-.stats li{color:var(--muted)}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--n);color:var(--r);font-family:Archivo,system-ui,sans-serif;font-size:16px;line-height:1.5;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+h1,h2,h3,p,dl,dd,figure{margin:0}
+:focus-visible{outline:3px solid var(--g);outline-offset:3px}
+.lc-cond{font-family:'Bricolage Grotesque',sans-serif;font-stretch:75%;font-variation-settings:'wdth' 75;font-weight:800;text-transform:uppercase;letter-spacing:-1px}
+.wrap{max-width:1440px;margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+.kicker{display:inline-flex;flex-wrap:wrap;align-items:center;gap:10px 14px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--r)}
+.chip-g{background:var(--g);color:var(--v);padding:6px 12px;border-radius:999px}
+.btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:16px 28px;font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.8px;text-decoration:none;transition:transform .2s,box-shadow .2s;white-space:nowrap}
+.btn:hover{transform:translate(-3px,-3px);box-shadow:4px 4px 0 var(--n)}
+.btn-g{background:var(--g);color:var(--v)}
+.btn-v{background:var(--v);color:var(--g)}
+.ulink{color:var(--r);font-weight:700;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px}
+.ulink:hover{color:var(--g)}
 
-/* Filters */
-.rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line)}
-.rail .wrap{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:center;padding-block:14px}
-.fgroup{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-width:0}
-.fgroup > span{margin-right:6px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
-.chip{border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:14px;line-height:1.2;transition:background .15s,border-color .15s,color .15s}
-.chip:hover{border-color:var(--ink)}
-.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
-.count{margin-left:auto;color:var(--muted)}
+/* en-tête */
+.hd{position:sticky;top:0;z-index:30;background:var(--v)}
+.hd nav{max-width:1440px;margin:0 auto;padding:14px clamp(16px,3vw,40px);display:flex;align-items:center;gap:clamp(16px,3vw,40px)}
+.hd .logo img{height:clamp(40px,4vw,54px);width:auto}
+.hd .links{display:flex;gap:clamp(16px,2.4vw,36px);margin-left:auto}
+.hd .links a{color:var(--r);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;text-decoration:none}
+.hd .links a:hover{color:var(--g)}
+.hd .btn{padding:12px 22px;font-size:14px}
 
-/* Index grid */
-main{padding-block:clamp(24px,4vw,48px) 96px}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3.4vw,52px) clamp(16px,2.2vw,32px)}
-.card{display:flex;flex-direction:column;gap:12px;text-align:left;min-width:0}
-.cover{position:relative;aspect-ratio:4/5;max-width:100%;overflow:hidden;border-radius:var(--radius);background:var(--paper-2)}
-.cover img,.cover video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1),opacity .3s}
-.cover video{opacity:0}
-.card:hover .cover img,.card:focus-visible .cover img{transform:scale(1.03)}
-.card.playing .cover video{opacity:1}
-.cover .tally{position:absolute;left:10px;bottom:10px;display:flex;gap:6px}
-.tally span{background:rgba(12,14,13,.72);color:#F1F2EE;border-radius:2px;padding:3px 7px;font-family:var(--mono);font-size:11px;letter-spacing:.04em;backdrop-filter:blur(4px)}
-.card h2{font:400 clamp(24px,2.2vw,30px)/1.08 var(--display);margin:0;text-wrap:balance}
-.card .meta{display:flex;justify-content:space-between;gap:12px;align-items:baseline;color:var(--muted);font-size:14px}
-.card .tags{color:var(--muted)}
-.empty{padding:60px 0;color:var(--muted)}
+/* hero */
+.hero{background:var(--v);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(32px,5vw,80px);align-items:center;padding-top:clamp(48px,7vw,104px);padding-bottom:clamp(64px,8vw,120px)}
+.hero h1{font-size:clamp(64px,9vw,140px);line-height:.86;color:#fff;margin:24px 0 28px}
+.hero h1 span{color:var(--g)}
+.hero .lede{font-size:clamp(18px,1.6vw,22px);line-height:1.45;max-width:36em;color:var(--r)}
+.hero .acts{display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px;margin-top:36px}
+.visu{position:relative;justify-self:center;width:min(100%,400px);margin-right:18px}
+.visu::before{content:"";position:absolute;inset:0;background:var(--g);border-radius:28px;transform:rotate(-3deg) translate(18px,18px)}
+.visu .card-v{position:relative;transform:rotate(-3deg);border-radius:28px;overflow:hidden;aspect-ratio:4/5;background:var(--n)}
+.visu .card-v img{width:100%;height:100%;object-fit:cover}
+.visu .sticker{position:absolute;left:-26px;top:26px;transform:rotate(-8deg);background:var(--r);color:var(--v);padding:10px 18px;border-radius:999px;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;box-shadow:4px 4px 0 var(--n)}
+.visu .sticker2{left:auto;right:-20px;top:auto;bottom:34px;transform:rotate(6deg);background:var(--g)}
 
-/* Project sheet */
-.sheet{position:fixed;inset:0;z-index:20;background:var(--paper);overflow-y:auto;overscroll-behavior:contain}
-.sheet-bar{position:sticky;top:0;z-index:2;background:var(--paper);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
-.sheet-bar .wrap{display:flex;align-items:center;gap:16px;padding-block:12px}
-.sheet-bar .crumb{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--display);font-size:20px}
-.navbtn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:14px}
-.navbtn:hover{border-color:var(--ink)}
-.sheet-head{padding-block:clamp(28px,5vw,64px) clamp(20px,3vw,32px);display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:24px 48px;align-items:end}
-.sheet-head h1{font:400 clamp(44px,7.5vw,112px)/.92 var(--display);margin:0;letter-spacing:-.015em;text-wrap:balance}
-.facts{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:0}
-.facts dt{color:var(--muted);text-transform:uppercase;letter-spacing:.12em;padding-top:2px}
-.facts dd{margin:0;font-size:15px}
-.facts a{text-decoration-thickness:1px;text-underline-offset:3px}
-.story{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px 48px;padding-block:0 32px;max-width:1100px}
-.story p{margin:0;font-size:17px;line-height:1.6;max-width:62ch}
-.story-k{color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin:0 0 8px!important;font-size:12px!important}
-.chapter{border-top:1px solid var(--line);padding-block:28px 40px;display:flex;flex-direction:column;gap:22px}
-.chapter h3{font:400 26px/1.1 var(--display);margin:0;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
-.chapter h3 .mono{color:var(--muted)}
-.reels{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:10px;scrollbar-width:thin}
+/* bandeau */
+.band{background:var(--v);padding:0 0 clamp(48px,6vw,80px);overflow:hidden}
+.band h2{text-align:center;color:var(--g);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:2px;margin-bottom:22px}
+.band .tilt{transform:rotate(-2deg);border-top:2px solid rgba(250,199,255,.3);border-bottom:2px solid rgba(250,199,255,.3);padding:18px 0;margin:0 -40px}
+.lc-track{display:flex;width:max-content;animation:lc-defile 90s linear infinite}
+.lc-track span{font-size:clamp(32px,4vw,56px);color:#fff;white-space:nowrap;padding:0 28px;line-height:1}
+.lc-track i{font-style:normal;color:var(--g);font-size:clamp(24px,3vw,40px);align-self:center}
+@keyframes lc-defile{to{transform:translateX(-50%)}}
+
+/* chiffres */
+.nums{background:var(--v);padding:clamp(24px,4vw,56px) 0 clamp(64px,8vw,112px)}
+.nums h2{font-size:clamp(48px,6.4vw,96px);line-height:.9;color:var(--r);max-width:14em}
+.nums h2 span{color:var(--g)}
+.nums ul{list-style:none;margin:clamp(40px,5vw,64px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.nums li{border-top:2px solid var(--r);padding-top:20px}
+.nums b{display:block;font-size:clamp(64px,7vw,108px);line-height:.9;color:var(--g)}
+.nums h3{font-size:20px;color:#fff;margin:12px 0 6px}
+.nums p{font-size:16px;color:var(--r)}
+
+/* réalisations */
+.works{background:var(--n);padding:clamp(64px,8vw,120px) 0}
+.works .top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px 40px;margin-bottom:40px}
+.works h2{font-size:clamp(48px,6.4vw,96px);line-height:.9;color:#fff}
+.works h2 span{color:var(--g)}
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chip{border:2px solid var(--r);color:var(--r);border-radius:999px;padding:9px 18px;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:1px;transition:background .15s,color .15s}
+.chip:hover{background:rgba(250,199,255,.12)}
+.chip[aria-pressed="true"]{background:var(--r);color:var(--v)}
+.count{color:rgba(250,199,255,.7);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:clamp(28px,3vw,44px) clamp(20px,2.4vw,32px)}
+.card{display:block;text-align:left;width:100%;align-self:start}
+.card .media{position:relative;border-radius:24px;background:var(--v);aspect-ratio:4/4.4;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:background .25s}
+.card .media img{width:62%;height:auto;max-height:78%;object-fit:contain;border-radius:4px;box-shadow:10px 10px 0 var(--g);transform:rotate(-2deg);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.card:hover .media img,.card:focus-visible .media img{transform:rotate(1.5deg) scale(1.04);box-shadow:14px 14px 0 var(--r)}
+.card .fmt{position:absolute;left:16px;top:16px;background:var(--r);color:var(--v);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.card .pg{position:absolute;right:16px;bottom:16px;background:var(--n);color:var(--g);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.card h3{font-size:clamp(30px,2.6vw,40px);line-height:.92;color:var(--g);margin-top:20px}
+.card .t{font-size:16px;color:var(--r);margin-top:8px;line-height:1.4}
+.card .y{font-size:13px;color:rgba(255,255,255,.8);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-top:10px}
+
+/* appel à l'action */
+.brief{background:var(--g);color:var(--v);padding:clamp(64px,8vw,120px) 0}
+.brief .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(32px,5vw,80px);align-items:center}
+.brief h2{font-size:clamp(56px,7vw,112px);line-height:.88}
+.brief p{font-size:clamp(18px,1.6vw,22px);line-height:1.45;color:var(--n);margin-bottom:28px}
+.brief .alt{display:block;margin-top:18px;color:var(--v);font-weight:700}
+
+/* pied de page */
+.ft{position:relative;background:var(--v)}
+.ft svg.wave{display:block;width:100%;height:clamp(170px,20vw,300px)}
+.ft .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:40px 32px;padding-bottom:clamp(40px,5vw,64px)}
+.ft .in{max-width:1440px;margin:0 auto;padding:clamp(40px,5vw,64px) var(--pad) 32px}
+.ft nav{display:flex;flex-direction:column;gap:12px}
+.ft nav>span{color:var(--g);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:2px}
+.ft nav a{color:#fff;font-size:17px;text-decoration:none}
+.ft nav a:hover,.ft .legal a:hover{text-decoration:underline;text-underline-offset:4px}
+.ft .legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:24px;border-top:1px solid rgba(250,199,255,.3);color:var(--r);font-size:13px}
+.ft .legal a{color:var(--r);text-decoration:none}
+
+/* fiche publication */
+.sheet{position:fixed;inset:0;z-index:50;background:var(--n);overflow-y:auto;overscroll-behavior:contain}
+.sheet-bar{position:sticky;top:0;z-index:2;background:var(--v)}
+.sheet-bar .wrap{display:flex;align-items:center;gap:10px;padding-top:12px;padding-bottom:12px}
+.navbtn{border:2px solid var(--r);color:var(--r);border-radius:999px;padding:8px 16px;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap;transition:background .15s,color .15s}
+.navbtn:hover{background:rgba(250,199,255,.15)}
+.navbtn[aria-pressed="true"]{background:var(--r);color:var(--v)}
+.sheet-bar .crumb{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#fff;font-weight:700;font-size:15px;padding:0 8px}
+.seg{display:flex;gap:6px}
+.sm{display:none}
+.sheet-head{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(24px,4vw,64px);align-items:end;padding:clamp(40px,5vw,72px) 0 clamp(32px,4vw,56px)}
+.sheet-head .fmt{display:inline-block;background:var(--g);color:var(--v);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:18px}
+.sheet-head h1{font-size:clamp(56px,8vw,128px);line-height:.86;color:var(--g)}
+.sheet-head .tagline{font-size:clamp(18px,1.6vw,22px);color:var(--r);margin-top:16px}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:10px 20px;border-top:2px solid var(--r);padding-top:18px;font-size:14px}
+.facts dt{color:rgba(250,199,255,.7);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;font-size:12px;padding-top:2px}
+.facts dd{color:#fff;font-weight:700}
+.cta{display:inline-flex;margin-top:24px;background:var(--g);color:var(--v);border-radius:999px;padding:16px 26px;font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.8px;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.cta:hover{transform:translate(-3px,-3px);box-shadow:4px 4px 0 var(--r)}
+.read{display:flex;flex-direction:column;align-items:center;gap:clamp(28px,4vw,56px)}
+.read .page{width:100%;max-width:1280px}
+.read .cover-page{max-width:560px}
+.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:24px;align-items:start}
+.page button{display:block;width:100%;cursor:zoom-in;border-radius:12px;overflow:hidden;background:#2a2626}
+.page img{width:100%;height:auto;transition:transform .3s}
+.page button:hover img{transform:scale(1.015)}
+.page figcaption{display:flex;justify-content:space-between;margin-top:10px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(250,199,255,.75)}
+.sheet-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px;padding:clamp(48px,6vw,88px) 0}
+.next{text-align:right;color:var(--g);font-family:'Bricolage Grotesque',sans-serif;font-stretch:75%;font-variation-settings:'wdth' 75;font-weight:800;text-transform:uppercase;font-size:clamp(32px,4vw,56px);line-height:.9}
+.next small{display:block;font-family:Archivo,sans-serif;font-stretch:100%;font-variation-settings:normal;font-size:12px;letter-spacing:2px;color:var(--r);margin-bottom:8px}
+.next:hover{color:#fff}
+
+/* visionneuse */
+.lb{position:fixed;inset:0;z-index:60;background:rgba(26,23,23,.97);display:flex;flex-direction:column}
+.lb-top,.lb-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px var(--pad)}
+.lb-top span{color:var(--r);font-weight:700;font-size:14px}
+.lb-stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:0 var(--pad)}
+.lb-stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:6px}
+
+@media (max-width:980px){
+  .hero .wrap,.brief .wrap,.sheet-head{grid-template-columns:1fr}
+  .visu{width:min(78%,340px);margin-top:12px}
+  .hd .links{display:none}
+  .hd .btn{margin-left:auto}
+}
+@media (max-width:640px){
+  .nums ul{grid-template-columns:1fr;gap:28px}
+  .hd .btn{padding:10px 16px;font-size:12px}
+  .sheet-bar .crumb,.sheet-bar #s-prev,.sheet-bar #s-next,.lg{display:none}
+  .sm{display:inline}
+  .grid{grid-template-columns:1fr 1fr;gap:28px 14px}
+  .card .media{border-radius:16px}
+  .card .media img{box-shadow:6px 6px 0 var(--g)}
+  .card .fmt,.card .pg{font-size:10px;padding:4px 8px;letter-spacing:.6px}
+  .card .fmt{left:8px;top:8px}.card .pg{right:8px;bottom:8px}
+  .card h3{font-size:24px;margin-top:12px}
+  .card .t{font-size:14px}.card .y{font-size:11px;letter-spacing:1px}
+  .sheet-bar .seg{margin-left:auto}
+  .navbtn{padding:7px 12px;font-size:12px}
+  .btn{padding:14px 22px}
+  .visu .sticker{left:-10px}
+}
+@media (prefers-reduced-motion:reduce){.lc-track{animation:none}*{transition:none!important}html{scroll-behavior:auto}}
+
+/* références : vignettes vidéo et fiche */
+.card .media{aspect-ratio:4/3}
+.card .media img,.card .media video{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:cover;border-radius:0;box-shadow:none;transform:none;transition:transform .6s cubic-bezier(.2,.7,.2,1),opacity .3s}
+.card .media video{opacity:0}
+.card:hover .media img,.card:focus-visible .media img{transform:scale(1.04);box-shadow:none}
+.card.playing .media video{opacity:1}
+.card .pg{display:flex;gap:6px;background:none;padding:0}
+.card .pg span{background:var(--n);color:var(--g);border-radius:999px;padding:6px 10px}
+.fgroup{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.fgroup>.lbl{color:var(--g);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:2px;margin-right:4px}
+.filters{flex-direction:column;align-items:flex-start;gap:14px}
+.empty{padding:60px 0;color:var(--r)}
+.visu .card-v video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sheet-head{align-items:start}
+.facts a{color:var(--g)}
+.story{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px 56px;padding:0 0 40px;max-width:1100px}
+.story p{font-size:17px;line-height:1.6;max-width:62ch;color:#fff}
+.story .story-k{color:var(--g);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px}
+.chapter{border-top:2px solid rgba(250,199,255,.3);padding:32px 0 44px;display:flex;flex-direction:column;gap:24px}
+.chapter h3{font-family:'Bricolage Grotesque',sans-serif;font-stretch:75%;font-variation-settings:'wdth' 75;font-weight:800;text-transform:uppercase;font-size:clamp(28px,3vw,40px);line-height:.95;color:var(--r);display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.chapter h3 .n{font-family:Archivo,sans-serif;font-stretch:100%;font-variation-settings:normal;font-size:12px;letter-spacing:1.5px;color:rgba(250,199,255,.7)}
+.reels{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:10px;scrollbar-width:thin;scrollbar-color:var(--v) transparent}
 .reel{flex:0 0 clamp(200px,22vw,280px);scroll-snap-align:start;display:flex;flex-direction:column;gap:8px;min-width:0}
-.frame{position:relative;background:#0D0F0E;border-radius:var(--radius);overflow:hidden;max-width:100%}
-.frame video{display:block;width:100%;height:100%;object-fit:contain;background:#0D0F0E}
+.frame{position:relative;background:#000;border-radius:16px;overflow:hidden;max-width:100%}
+.frame video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
 .reel .frame{aspect-ratio:9/16}
-.films{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,440px),1fr));gap:22px 18px}
+.films{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,440px),1fr));gap:24px 20px}
 .film{display:flex;flex-direction:column;gap:8px;min-width:0}
 .film .frame{aspect-ratio:16/9}
-.cap{display:flex;justify-content:space-between;gap:10px;font-size:14px}
-.cap .mono{color:var(--muted);white-space:nowrap}
+.cap{display:flex;justify-content:space-between;gap:10px;font-size:14px;color:#fff}
+.cap .d{color:rgba(250,199,255,.7);white-space:nowrap;font-size:12px;font-weight:700;letter-spacing:1px}
 .mason{columns:3 260px;column-gap:14px}
-.mason button{display:block;width:100%;margin:0 0 14px;break-inside:avoid;border-radius:var(--radius);overflow:hidden;background:var(--paper-2)}
+.mason button{display:block;width:100%;margin:0 0 14px;break-inside:avoid;border-radius:14px;overflow:hidden;background:#2a2626;cursor:zoom-in}
 .mason img{display:block;width:100%;height:auto;transition:opacity .2s}
 .mason button:hover img{opacity:.88}
-.docs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:18px}
-.doc{display:flex;flex-direction:column;gap:10px;text-decoration:none;min-width:0}
-.doc .page{aspect-ratio:3/4;max-width:100%;background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;align-items:flex-start;justify-content:center}
-.doc img{width:100%;height:100%;object-fit:cover;object-position:top}
-.doc:hover .page{border-color:var(--ink)}
+.docs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:20px}
+.doc{display:flex;flex-direction:column;gap:10px;text-decoration:none;min-width:0;color:#fff}
+.doc .page{aspect-ratio:3/4;max-width:100%;background:#2a2626;border:2px solid transparent;border-radius:14px;overflow:hidden}
+.doc .page img{width:100%;height:100%;object-fit:cover;object-position:top}
+.doc:hover .page{border-color:var(--g)}
 .doc span{font-size:14px}
-.sheet-foot{border-top:1px solid var(--line);padding-block:28px 64px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.next{font:400 clamp(28px,4vw,48px)/1 var(--display);text-align:right}
-.next small{display:block;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.08em;margin-bottom:8px;text-transform:uppercase}
-
-/* Lightbox */
-.lb{position:fixed;inset:0;z-index:40;background:var(--scrim);display:grid;grid-template-rows:auto 1fr auto;color:#EEF0EB;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
-.lb-top{display:flex;justify-content:space-between;align-items:center;padding:14px var(--gutter)}
-.lb-stage{display:flex;align-items:center;justify-content:center;min-height:0;padding:0 var(--gutter)}
-.lb-stage img{max-width:100%;max-height:100%;object-fit:contain}
-.lb-nav{display:flex;justify-content:center;gap:12px;padding:14px}
-.lb .navbtn{border-color:rgba(238,240,235,.3);color:#EEF0EB}
-.lb .navbtn:hover{border-color:#EEF0EB}
-
-@media (max-width:1020px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:760px){
-  header.hero,.sheet-head{grid-template-columns:minmax(0,1fr)}
-  .grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 14px}
-  .card h2{font-size:21px}
-  .card .meta{flex-direction:column;gap:2px;font-size:13px}
-  .rail .wrap{gap:8px}
-  .fgroup{flex-wrap:nowrap;overflow-x:auto;max-width:100%;padding-bottom:2px;scrollbar-width:none}
-  .fgroup .chip{white-space:nowrap}
-  .count{display:none}
-  .reel{flex-basis:62vw}
-}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.doc .pdf{color:var(--g);font-weight:800;font-size:12px;letter-spacing:1px}
+@media (max-width:640px){.reel{flex-basis:62vw}.filters{gap:10px}}
 </style>
 
-<div class="wrap masthead">
-  <a class="brand" href="#" aria-label="Les Conteurs, retour à l’index"><svg class="logo" viewBox="0 0 191.5 50" role="img" aria-label="Les Conteurs">
-  <polygon fill="currentColor" points="70.1 42.3 58.7 27 53.8 27 53.8 49.6 58.7 49.6 58.7 34.3 70.2 49.6 75.1 49.6 75.1 27 70.1 27 70.1 42.3"/>
-  <path fill="currentColor" d="M12.3,45.4c-3.9.2-7.2-2.9-7.4-6.8-.2-3.9,2.9-7.2,6.8-7.4.2,0,.4,0,.6,0,2.2,0,4.3.9,5.7,2.6l3.8-3c-2.4-2.8-5.8-4.3-9.5-4.3C5.8,26.2.3,31.2,0,37.7s4.7,12,11.1,12.3c.4,0,.8,0,1.1,0,3.7,0,7.3-1.5,9.6-4.4l-3.9-2.8c-1.4,1.7-3.5,2.7-5.7,2.7Z"/>
-  <path fill="currentColor" d="M134.8,18.7c-2.7,0-5.3-.7-7.6-2l-2.6,3.8c3,1.8,6.5,2.7,10,2.7,5.6,0,9.3-2.9,9.3-6.8s-2-5.6-6.9-6.7l-3.1-.7c-2.2-.5-3.2-1.1-3.2-2.4s1.6-2.2,4-2.2c2.1,0,4.2.7,6,1.8l2.5-3.8C140.5.8,137.4,0,134.3,0,129.3,0,125.5,2.8,125.5,6.5s2,5.7,7.1,6.9l2.8.6c2.7.6,3.5,1.1,3.4,2.5s-1.6,2.2-4,2.2Z"/>
-  <polygon fill="currentColor" points="98 18.3 84.2 18.3 84.2 .3 79.2 .3 79.2 22.8 98 22.8 98 18.3"/>
-  <polygon fill="currentColor" points="78.9 31.5 86.1 31.5 86.1 49.6 90.9 49.6 90.9 31.5 98.1 31.5 98.1 27 78.9 27 78.9 31.5"/>
-  <path fill="currentColor" d="M158.8,27h-9.3v4h10.6c1.6.1,2.9,1.5,2.8,3.2-.1,1.5-1.3,2.7-2.8,2.8h-10.6v12.7h4.9v-8.5h5.3c4.9-.2,7.6-2.5,7.6-6.9s-3.3-7.3-8.5-7.3Z"/>
-  <polygon fill="currentColor" points="106.8 39.8 115.9 39.8 115.9 35.5 106.8 35.4 106.8 31.5 119.7 31.5 119.7 27 101.9 27 101.9 49.6 119.7 49.6 119.7 45.1 106.8 45.1 106.8 39.8"/>
-  <path fill="currentColor" d="M184.7,36.4l-3.1-.7c-2.2-.5-3.2-1.1-3.2-2.4s1.6-2.2,4-2.2c2.1,0,4.2.7,6,1.8l2.5-3.8c-2.7-1.6-5.8-2.4-8.9-2.4-5,0-8.8,2.8-8.8,6.5,0,3.4,2,5.7,7.1,6.9l2.8.6c2.7.6,3.5,1.1,3.4,2.5s-1.6,2.3-4,2.3c-2.7,0-5.3-.7-7.6-2l-2.7,3.8c3,1.8,6.5,2.7,10,2.7,5.6,0,9.3-2.9,9.3-6.8,0-3.7-2-5.7-6.8-6.8Z"/>
-  <path fill="currentColor" d="M139.3,38.6c0,4.3-1.5,6.7-5.3,6.7s-5.3-2.5-5.3-6.8v-11.6h-4.6v11.5c0,7,3.4,11.4,10,11.4s10-4.4,10-11.3v-11.6h-4.7v11.6Z"/>
-  <polygon fill="currentColor" points="106.9 13.1 116 13.1 116 8.7 106.9 8.7 106.9 4.8 119.8 4.8 119.8 .3 102 .3 102 22.8 119.8 22.8 119.8 18.3 106.9 18.3 106.9 13.1"/>
-  <polygon fill="currentColor" points="152.8 27 149.5 27 149.5 31 162.6 49.6 168.1 49.6 152.8 27"/>
-  <path fill="currentColor" d="M36.8,26.6c-6.5-.3-12,4.7-12.3,11.1s4.7,12,11.1,12.3c.4,0,.8,0,1.1,0,6.5.3,12-4.7,12.3-11.1s-4.7-12-11.1-12.3c-.4,0-.8,0-1.1,0ZM36.8,45.4c-3.9,0-7.1-3.3-7-7.2,0-3.9,3.3-7.1,7.2-7,3.9,0,7,3.2,7,7.1,0,3.9-3,7.1-6.9,7.1-.1,0-.2,0-.3,0h0Z"/>
-  <path fill="currentColor" d="M44.5,23c1.2,0,2.2-1,2.2-2.2s-1-2.2-2.2-2.2c-1.2,0-2.2,1-2.2,2.2,0,1.2.9,2.2,2.1,2.3,0,0,0,0,0,0Z"/>
-  <path fill="currentColor" d="M37,23c1.2,0,2.2-1,2.2-2.2,0-1.2-1-2.2-2.2-2.2-1.2,0-2.2,1-2.2,2.2,0,1.2.9,2.2,2.1,2.3,0,0,0,0,0,0Z"/>
-  <path fill="currentColor" d="M29.4,23c1.2,0,2.2-1,2.2-2.2,0-1.2-1-2.2-2.2-2.2-1.2,0-2.2,1-2.2,2.2,0,1.2.9,2.2,2.1,2.3,0,0,0,0,0,0Z"/>
-</svg></a>
-  <span class="mono">Tourisme &amp; destinations</span>
-</div>
-<header class="wrap hero">
-  <div>
-    <h1 class="title">Références</h1>
-  </div>
-  <div>
-    <p class="lede">Films, contenus réseaux sociaux, campagnes publicitaires et newsletters réalisés pour des destinations, des offices de tourisme et des marques de l’hôtellerie touristique.</p>
-    <ul class="stats mono" id="stats"></ul>
-  </div>
-</header>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><path id="lc-zero-forme" fill-rule="evenodd" d="M0,50 A50,50 0 0 1 100,50 V170 A50,50 0 0 1 0,170 Z M42,40 A8,8 0 0 1 58,40 V180 A8,8 0 0 1 42,180 Z"></path><clipPath id="lc-zero-haut"><rect x="-150" y="-300" width="400" height="410" transform="rotate(-45 50 110)"></rect></clipPath><clipPath id="lc-zero-bas"><rect x="-150" y="110" width="400" height="410" transform="rotate(-45 50 110)"></rect></clipPath><g id="lc-zero"><g clip-path="url(#lc-zero-bas)"><use href="#lc-zero-forme"></use></g><g transform="translate(14 -14)"><g clip-path="url(#lc-zero-haut)"><use href="#lc-zero-forme"></use></g></g></g></defs></svg>
 
-<nav class="rail" aria-label="Filtres">
+<header class="hd"><nav aria-label="Navigation principale">
+  <a class="logo" href="https://www.les-conteurs.com/" aria-label="Les Conteurs, accueil du site"><img src="logo-vert.png" alt="Les Conteurs" width="1000" height="397"></a>
+  <div class="links"><a href="https://www.les-conteurs.com/agence/">Agence</a><a href="https://www.les-conteurs.com/expertises/">Expertises</a><a href="https://www.les-conteurs.com/nos-references/">Références</a></div>
+  <a class="btn btn-g" href="https://www.les-conteurs.com/contact/">On tourne le vôtre ?</a>
+</nav></header>
+
+<main>
+<section class="hero">
   <div class="wrap">
-    <div class="fgroup" id="f-cat"><span class="mono">Expertise</span></div>
-    <div class="fgroup" id="f-kind"><span class="mono">Contenu</span></div>
-    <span class="count mono" id="count"></span>
+    <div>
+      <p class="kicker"><span class="chip-g">Nos références</span><span>Films</span><span>Social media</span><span>Publicité</span></p>
+      <h1 class="lc-cond">On fait parler <span>les destinations.</span></h1>
+      <p class="lede">Films, contenus réseaux sociaux, campagnes publicitaires et newsletters, tournés et écrits pour des destinations, des offices de tourisme et des marques de l’hôtellerie touristique.</p>
+      <div class="acts"><a class="btn btn-g" href="#references">On regarde ?</a><a class="ulink" href="https://www.les-conteurs.com/expertises/">Découvrir nos expertises</a></div>
+    </div>
+    <div class="visu" aria-hidden="true">
+      <div class="card-v" id="hero-card"><img id="hero-img" alt=""></div>
+      <span class="sticker">Moteur… action !</span>
+      <span class="sticker sticker2">Son coupé</span>
+    </div>
   </div>
-</nav>
+</section>
 
-<main class="wrap">
+<section class="band" aria-labelledby="band-t">
+  <h2 id="band-t">Ils nous ont confié leur image</h2>
+  <div class="tilt"><div class="lc-track lc-cond" id="track"></div></div>
+</section>
+
+<section class="nums" aria-labelledby="nums-t"><div class="wrap">
+  <h2 id="nums-t" class="lc-cond">On tourne, on monte, <span>on publie.</span></h2>
+  <ul>
+    <li><b class="lc-cond" id="n-a"></b><h3>clients</h3><p>Destinations, offices de tourisme, hôtellerie et transport.</p></li>
+    <li><b class="lc-cond" id="n-b"></b><h3>vidéos</h3><p>Films de destination, reels, UGC et formats publicitaires.</p></li>
+    <li><b class="lc-cond" id="n-c"></b><h3>visuels</h3><p>Photos, posts, bannières et newsletters.</p></li>
+  </ul>
+</div></section>
+
+<section class="works" id="references" aria-labelledby="works-t"><div class="wrap">
+  <div class="top">
+    <h2 id="works-t" class="lc-cond">On regarde <span>?</span></h2>
+    <div class="filters">
+      <div class="fgroup" id="f-cat" role="group" aria-label="Filtrer par expertise"><span class="lbl">Expertise</span></div>
+      <div class="fgroup" id="f-kind" role="group" aria-label="Filtrer par contenu"><span class="lbl">Contenu</span><span class="count" id="count"></span></div>
+    </div>
+  </div>
   <div class="grid" id="grid"></div>
-  <p class="empty" id="empty" hidden>Aucune référence ne correspond à ces filtres.</p>
+  <p class="empty" id="empty" hidden>Aucune référence ne correspond à ces filtres. On élargit ?</p>
+</div></section>
+
+<section class="brief" aria-labelledby="brief-t"><div class="wrap">
+  <h2 id="brief-t" class="lc-cond">On tourne le vôtre ?</h2>
+  <div>
+    <p>Un film de destination, une campagne social media, des contenus UGC ou une newsletter qui se lit vraiment : racontez-nous votre projet.</p>
+    <a class="btn btn-v" href="https://www.les-conteurs.com/contact/">On en parle</a>
+    <a class="alt ulink" style="color:var(--v)" href="mailto:hello@les-conteurs.com">hello@les-conteurs.com</a>
+  </div>
+</div></section>
 </main>
+
+<footer class="ft">
+  <svg class="wave" aria-hidden="true" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMid slice"><rect x="0" y="0" width="1440" height="300" fill="#B7FF78"></rect><polygon points="0,236 1440,96 1440,300 0,300" fill="#5B21D8"></polygon><g transform="translate(40 228) rotate(45) scale(0.92) translate(-50 -110)"><use href="#lc-zero" fill="#FAC7FF"></use></g><g transform="translate(222 210) rotate(45) scale(0.92) translate(-50 -110)"><use href="#lc-zero" fill="#B7FF78"></use></g><g transform="translate(404 193) rotate(45) scale(0.92) translate(-50 -110)"><use href="#lc-zero" fill="#B7FF78"></use></g><g transform="translate(586 175) rotate(45) scale(0.92) translate(-50 -110)"><use href="#lc-zero" fill="#FAC7FF"></use></g><g transform="translate(768 157) rotate(45) scale(0.92) translate(-50 -110)"><use href="#lc-zero" fill="#B7FF78"></use></g><g transform="translate(950 140) rotate(45) scale(0.92) translate(-50 -110)"><use href="#lc-zero" fill="#B7FF78"></use></g><g transform="translate(1132 122) rotate(45) scale(0.92) translate(-50 -110)"><use href="#lc-zero" fill="#FAC7FF"></use></g><g transform="translate(1314 104) rotate(45) scale(0.92) translate(-50 -110)"><use href="#lc-zero" fill="#B7FF78"></use></g><g transform="translate(1496 86) rotate(45) scale(0.92) translate(-50 -110)"><use href="#lc-zero" fill="#B7FF78"></use></g></svg>
+  <div class="in">
+    <div class="cols">
+      <div style="display:flex;flex-direction:column;gap:16px"><img src="logo-conteurs-bloc.png" alt="Les Conteurs, éléments perturbateurs" width="1070" height="850" style="width:min(100%,240px);height:auto;filter:drop-shadow(8px 8px 0 #1A1717)"><span style="color:var(--r);font-size:14px;line-height:1.5">Agence basée à Bordeaux, active en France, en Belgique, en Suisse et au Bénin.</span></div>
+      <nav aria-label="Pied de page, l’agence"><span>L’agence</span><a href="https://www.les-conteurs.com/nos-references/" style="font-weight:700">Nos références</a><a href="https://www.les-conteurs.com/expertises/" style="font-weight:700">Nos expertises</a><a href="https://www.les-conteurs.com/agence/" style="font-weight:700">L’équipe</a><a href="https://www.les-conteurs.com/contact/" style="font-weight:700">Contact</a></nav>
+      <nav aria-label="Pied de page, nos portfolios"><span>Nos portfolios</span><a href="#references">Films &amp; social media</a><a href="https://les-conteurs-branding.netlify.app/">Branding</a><a href="https://les-conteurs-magazines.netlify.app/">Magazines</a></nav>
+      <nav aria-label="Pied de page, nous suivre"><span>Nous suivre</span><a href="https://www.linkedin.com/company/les-conteurs/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.instagram.com/agencelesconteurs/" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/playlist?list=PLiYwOtoNrf1sGG2ZRPJi4TFzT10LsIx6E" target="_blank" rel="noopener">Podcast To The Moon</a><a href="mailto:hello@les-conteurs.com">hello@les-conteurs.com</a></nav>
+    </div>
+    <div class="legal"><span>© 2026 Les Conteurs · éléments perturbateurs</span><a href="https://www.les-conteurs.com/">les-conteurs.com</a></div>
+  </div>
+</footer>
 
 <section class="sheet" id="sheet" hidden aria-modal="true" role="dialog" aria-labelledby="sheet-title"></section>
 <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Visuel agrandi">
-  <div class="lb-top"><span class="mono" id="lb-count"></span><button class="navbtn" id="lb-close">Fermer ✕</button></div>
+  <div class="lb-top"><span id="lb-count"></span><button class="navbtn" id="lb-close">Fermer ✕</button></div>
   <div class="lb-stage"><img id="lb-img" alt=""></div>
   <div class="lb-nav"><button class="navbtn" id="lb-prev">← Précédent</button><button class="navbtn" id="lb-next">Suivant →</button></div>
 </div>
@@ -210,9 +322,11 @@ function plural(n, one, many){ return `${n} ${n>1?many:one}`; }
 (() => {
   const v = DATA.reduce((a,c)=>a+c.videos.length,0), i = DATA.reduce((a,c)=>a+c.images.length,0), d = DATA.reduce((a,c)=>a+c.docs.length,0);
   const mins = Math.round(DATA.reduce((a,c)=>a+c.videos.reduce((x,y)=>x+y.d,0),0)/60);
-  document.getElementById("stats").innerHTML =
-    [[DATA.length,"clients"],[v,"vidéos"],[mins+" min","de films"],[i,"visuels"],[d,"documents"]]
-    .map(([n,l])=>`<li><b>${n}</b>${l}</li>`).join("");
+  document.getElementById("n-a").textContent = DATA.length;
+  document.getElementById("n-b").textContent = v;
+  document.getElementById("n-c").textContent = i;
+  const run = DATA.map(c=>`<span>${esc(c.name)}</span><i aria-hidden="true">✶</i>`).join("");
+  document.getElementById("track").innerHTML = run + run;
 })();
 
 // Filters
@@ -220,7 +334,7 @@ function chips(el, items, key){
   items.forEach(([val,label])=>{
     const b=document.createElement("button"); b.className="chip"; b.textContent=label; b.setAttribute("aria-pressed","false");
     b.onclick=()=>{ state[key] = state[key]===val?null:val; render(); };
-    b.dataset.val=val; el.appendChild(b);
+    b.dataset.val=val; el.insertBefore(b, el.querySelector(".count"));
   });
 }
 chips(document.getElementById("f-cat"), CATS.map(c=>[c,c]), "cat");
@@ -246,10 +360,10 @@ function render(){
     if(c.docs.length) t.push(plural(c.docs.length,"doc","docs"));
     const prev = c.videos[0] ? `<video muted loop playsinline preload="none" data-src="v/${c.videos[0].id}.mp4"></video>` : "";
     return `<button class="card" data-slug="${c.slug}">
-      <div class="cover"><img src="${coverOf(c)}" alt="" loading="lazy">${prev}
-        <div class="tally">${t.map(x=>`<span>${x}</span>`).join("")}</div></div>
-      <h2>${esc(c.name)}</h2>
-      <div class="meta"><span>${esc(c.sector)}</span><span class="tags mono">${esc(c.cats.join(" / "))}</span></div>
+      <div class="media"><img src="${coverOf(c)}" alt="" loading="lazy">${prev}
+        <span class="fmt">${esc(c.sector)}</span><span class="pg">${t.map(x=>`<span>${x}</span>`).join("")}</span></div>
+      <h3 class="lc-cond">${esc(c.name)}</h3>
+      <p class="t">${esc(c.cats.join(" · "))}</p>
     </button>`;
   }).join("");
   document.querySelectorAll(".card").forEach(card=>{
@@ -266,18 +380,18 @@ let current = -1, lastFocus = null;
 
 function videoEl(v){
   return `<div class="frame"><video controls playsinline preload="none" poster="p/${v.id}.webp" src="v/${v.id}.mp4"></video></div>
-    <div class="cap"><span>${esc(v.t)}</span><span class="mono">${ratio(v)} · ${dur(v.d)}</span></div>`;
+    <div class="cap"><span>${esc(v.t)}</span><span class="d">${ratio(v)} · ${dur(v.d)}</span></div>`;
 }
 
 function chapterHTML(ch, c, multi){
   const reels = ch.videos.filter(v=>v.h>v.w*1.1), films = ch.videos.filter(v=>!(v.h>v.w*1.1));
   const n=[]; if(ch.videos.length) n.push(plural(ch.videos.length,"vidéo","vidéos")); if(ch.images.length) n.push(plural(ch.images.length,"visuel","visuels")); if(ch.docs.length) n.push(plural(ch.docs.length,"document","documents"));
-  const title = multi ? `<h3>${esc(ch.label||"Contenus")} <span class="mono">${n.join(" · ")}</span></h3>` : "";
+  const title = multi ? `<h3>${esc(ch.label||"Contenus")} <span class="n">${n.join(" · ")}</span></h3>` : "";
   let h = "";
   if(films.length) h += `<div class="films">${films.map(v=>`<figure class="film" style="margin:0">${videoEl(v)}</figure>`).join("")}</div>`;
   if(reels.length) h += `<div class="reels">${reels.map(v=>`<figure class="reel" style="margin:0">${videoEl(v)}</figure>`).join("")}</div>`;
   if(ch.images.length) h += `<div class="mason">${ch.images.map(im=>`<button data-img="${im.id}" aria-label="Agrandir le visuel"><img src="i/${im.id}.webp" width="${im.w}" height="${im.h}" loading="lazy" alt="${esc(c.name)}"></button>`).join("")}</div>`;
-  if(ch.docs.length) h += `<div class="docs">${ch.docs.map(d=>`<a class="doc" href="d/${d.id}.pdf" target="_blank" rel="noopener"><div class="page"><img src="d/${d.cover}" alt="" loading="lazy"></div><span>${esc(d.t)} <span class="mono" style="color:var(--muted)">PDF ↗</span></span></a>`).join("")}</div>`;
+  if(ch.docs.length) h += `<div class="docs">${ch.docs.map(d=>`<a class="doc" href="d/${d.id}.pdf" target="_blank" rel="noopener"><div class="page"><img src="d/${d.cover}" alt="" loading="lazy"></div><span>${esc(d.t)} <span class="pdf">PDF ↗</span></span></a>`).join("")}</div>`;
   return `<section class="chapter">${title}${h}</section>`;
 }
 
@@ -294,16 +408,16 @@ function open(s, push=true){
   const multi = c.chapters.length>1;
   sheet.innerHTML = `
     <div class="sheet-bar"><div class="wrap">
-      <button class="navbtn" id="s-close">← Toutes les références</button>
+      <button class="navbtn" id="s-close">← <span class="lg">Toutes les références</span><span class="sm">Retour</span></button>
       <span class="crumb" aria-hidden="true">${esc(c.name)}</span>
       <button class="navbtn" id="s-prev" aria-label="Référence précédente : ${esc(pv.name)}">←</button>
       <button class="navbtn" id="s-next" aria-label="Référence suivante : ${esc(nx.name)}">→</button>
     </div></div>
     <div class="wrap">
-      <div class="sheet-head"><h1 id="sheet-title">${esc(c.name)}</h1><dl class="facts mono">${facts.map(([k,v])=>`<dt>${k}</dt><dd style="font-family:var(--body)">${v}</dd>`).join("")}</dl></div>
-      ${(c.context||c.results)?`<div class="story">${c.context?`<div><p class="mono story-k">Contexte</p><p>${esc(c.context).replace(/\n+/g,"<br><br>")}</p></div>`:""}${c.results?`<div><p class="mono story-k">Résultats</p><p>${esc(c.results).replace(/\n+/g,"<br><br>")}</p></div>`:""}</div>`:""}
+      <div class="sheet-head"><div><span class="fmt">${esc(c.sector)}</span><h1 id="sheet-title" class="lc-cond">${esc(c.name)}</h1></div><dl class="facts">${facts.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl></div>
+      ${(c.context||c.results)?`<div class="story">${c.context?`<div><p class="story-k">Contexte</p><p>${esc(c.context).replace(/\n+/g,"<br><br>")}</p></div>`:""}${c.results?`<div><p class="story-k">Résultats</p><p>${esc(c.results).replace(/\n+/g,"<br><br>")}</p></div>`:""}</div>`:""}
       ${c.chapters.map(ch=>chapterHTML(ch,c,multi)).join("")}
-      <div class="sheet-foot"><button class="navbtn" id="s-top">↑ Haut de page</button>
+      <div class="sheet-foot"><div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center"><button class="navbtn" id="s-top">↑ Haut de page</button><a class="cta" style="margin-top:0" href="https://www.les-conteurs.com/contact/">On tourne le vôtre ?</a></div>
         <button class="next" id="s-next2"><small>Référence suivante</small>${esc(nx.name)} →</button></div>
     </div>`;
   sheet.hidden = false; sheet.scrollTop = 0; document.body.style.overflow = "hidden";
@@ -341,5 +455,15 @@ document.addEventListener("keydown",e=>{
 });
 
 render();
+(() => {  // visuel du hero : la première référence qui a une vidéo, en boucle et sans le son
+  const c = DATA.find(x=>COVER[x.name] && x.videos.length) || DATA.find(x=>x.videos.length) || DATA[0];
+  if(!c) return;
+  document.getElementById("hero-img").src = coverOf(c);
+  const v0 = c.videos[0];
+  if(v0 && !matchMedia("(prefers-reduced-motion:reduce)").matches){
+    const v=document.createElement("video"); v.muted=true; v.loop=true; v.playsInline=true; v.autoplay=true; v.src=`v/${v0.id}.mp4`;
+    v.poster=`p/${v0.id}.webp`; document.getElementById("hero-card").appendChild(v); v.play().catch(()=>{});
+  }
+})();
 const h = decodeURIComponent(location.hash.slice(1)); if(h) open(h,false);
 </script>

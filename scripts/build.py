@@ -419,7 +419,8 @@ def main():
         '<meta name="robots" content="noindex">\n<link rel="icon" href="favicon.svg">\n'
         + page[:cut] + "\n</head>\n<body>\n" + page[cut:] + "\n</body>\n</html>\n")
     (DIST / "fragment.html").write_text(page)          # version sans <head>, pour une page Claude
-    shutil.copy(ROOT / "src/favicon.svg", DIST / "favicon.svg")
+    for f in ("favicon.svg", "logo-vert.png", "logo-conteurs-bloc.png"):
+        shutil.copy(ROOT / "src" / f, DIST / f)
     (DIST / "data.json").write_text(json.dumps(data, ensure_ascii=False, indent=1))
 
     # landings.json : les cartes « références » des landings du site (lues par l'extension WordPress).
