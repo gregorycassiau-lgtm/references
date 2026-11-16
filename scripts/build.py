@@ -354,7 +354,8 @@ def main():
         c = clients[name]
         for l in r["landings"]:
             if landing_slug(l) not in c["landings"]: c["landings"].append(landing_slug(l))
-        # Colonne Cibles : « Agence de voyage » → shortcode landing="cible-agence-de-voyage"
+        # Colonne Cibles (landings Industrie) : « Agence de voyage » → landing="cible-agence-de-voyage",
+        # « Destination » → "cible-destination", « Camping » → "cible-camping", « Hotels » → "cible-hotels"
         for l in r.get("cibles", []):
             k = "cible-" + landing_slug(l)
             if k not in c["landings"]: c["landings"].append(k)
