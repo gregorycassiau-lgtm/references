@@ -57,6 +57,10 @@ des landings (shortcode `[conteurs_references landing="production"]`).
   `Marketing automation`, `Rédaction`, `Home`. Elles deviennent
   `production`, `social-media`, `trafic`, `branding`, `conseil`,
   `marketing-automation`, `redaction`, `home` dans le shortcode.
+- **Cibles** (sélection multiple) : les secteurs du client, pour les landings de la rubrique
+  Industrie. `Agence de voyage`, `Destination`, `Hotels`, `Camping` deviennent
+  `cible-agence-de-voyage`, `cible-destination`, `cible-hotels`, `cible-camping`
+  (shortcode `[conteurs_references landing="cible-destination"]`).
 - **Ordre** (nombre) : 1 = en premier. Sans ordre, la référence passe après.
 - **Accroche** (texte) : une ligne sous le nom du client sur la carte.
 - **Résultats** (texte) : le premier paragraphe s'affiche en gras sur la carte.

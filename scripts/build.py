@@ -89,7 +89,7 @@ def read_rows():
                      "context": val("Contexte").strip(),
                      "results": (val("Résultats") or val("Résultat")).strip(),
                      # Colonnes des landings du site : Landing, Ordre, Accroche, Couverture
-                     "landings": multi("Landing"), "ordre": ordre, "accroche": val("Accroche").strip(),
+                     "landings": multi("Landing"), "cibles": multi("Cibles"), "ordre": ordre, "accroche": val("Accroche").strip(),
                      "covers": files("Couverture")})
     return rows
 
@@ -354,6 +354,10 @@ def main():
         c = clients[name]
         for l in r["landings"]:
             if landing_slug(l) not in c["landings"]: c["landings"].append(landing_slug(l))
+        # Colonne Cibles : « Agence de voyage » → shortcode landing="cible-agence-de-voyage"
+        for l in r.get("cibles", []):
+            k = "cible-" + landing_slug(l)
+            if k not in c["landings"]: c["landings"].append(k)
         if r["ordre"] is not None and (c["ordre"] is None or r["ordre"] < c["ordre"]): c["ordre"] = r["ordre"]
         if r["accroche"] and not c["accroche"]: c["accroche"] = r["accroche"]
         if r["covers"] and not c["cover_img"] and (MEDIA / "c" / f"{r['id']}.webp").exists():
